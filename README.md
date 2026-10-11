@@ -1,17 +1,82 @@
-# mobile_widgets_app
+# Flutter Widgets App
 
-A new Flutter project.
+Практична робота №5 з дисципліни «Програмування для мобільних платформ».
 
-## Getting Started
+Студент: Максим Устич
 
-This project is a starting point for a Flutter application.
+## Опис проєкту
 
-A few resources to get you started if this is your first Flutter project:
+Навчальний Flutter-застосунок для демонстрації роботи з власними віджетами, StatefulWidget, анімаціями, темами та керуванням станом.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## Реалізовані віджети
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- ProfileWidget
+- CustomButton
+- AnimatedCounter
+- ProductCard
+
+## Функціональність
+
+- головний екран
+- екран товарів
+- екран профілю
+- світла і темна тема
+- анімований лічильник
+- додавання товарів в улюблені
+- додавання товарів у кошик
+- адаптивне відображення у Flutter Web
+
+## Структура проєкту
+
+```text
+lib/
+├── main.dart
+├── screens/
+│   ├── home_screen.dart
+│   ├── profile_screen.dart
+│   └── products_screen.dart
+├── widgets/
+│   ├── custom_button.dart
+│   ├── product_card.dart
+│   ├── profile_widget.dart
+│   └── animated_counter.dart
+├── models/
+│   ├── user.dart
+│   └── product.dart
+└── utils/
+    ├── app_state.dart
+    ├── constants.dart
+    └── themes.dart
+```
+
+## Запуск проєкту
+
+```bash
+flutter pub get
+flutter run -d chrome
+```
+
+## Перевірка проєкту
+
+```bash
+flutter analyze
+flutter test
+```
+
+## Скриншоти
+
+### Головний екран
+
+![Головний екран](screenshots/1_home.jpg)
+
+### Товари
+
+![Товари](screenshots/2_products.jpg)
+
+### Профіль
+
+![Профіль](screenshots/3_profile.jpg)
+
+### Темна тема
+
+![Темна тема](screenshots/4_dark_theme.jpg)
