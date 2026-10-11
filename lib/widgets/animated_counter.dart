@@ -23,7 +23,10 @@ class _AnimatedCounterState extends State<AnimatedCounter>
   late int _value;
 
   late AnimationController _scaleController;
+  late AnimationController _buttonController;
+
   late Animation<double> _scaleAnimation;
+  late Animation<double> _buttonAnimation;
 
   @override
   void initState() {
@@ -36,6 +39,11 @@ class _AnimatedCounterState extends State<AnimatedCounter>
       duration: widget.animationDuration,
     );
 
+    _buttonController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 180),
+    );
+
     _scaleAnimation = Tween<double>(
       begin: 1.0,
       end: 1.2,
@@ -45,11 +53,27 @@ class _AnimatedCounterState extends State<AnimatedCounter>
         curve: Curves.easeInOut,
       ),
     );
+
+    _buttonAnimation = Tween<double>(
+      begin: 1.0,
+      end: 1.25,
+    ).animate(
+      CurvedAnimation(
+        parent: _buttonController,
+        curve: Curves.elasticOut,
+      ),
+    );
   }
 
-  void _animate() {
+  void _animateCounter() {
     _scaleController.forward().then((_) {
       _scaleController.reverse();
+    });
+  }
+
+  void _animateButton() {
+    _buttonController.forward().then((_) {
+      _buttonController.reverse();
     });
   }
 
@@ -58,7 +82,9 @@ class _AnimatedCounterState extends State<AnimatedCounter>
       setState(() {
         _value++;
       });
-      _animate();
+
+      _animateCounter();
+      _animateButton();
     }
   }
 
@@ -67,13 +93,16 @@ class _AnimatedCounterState extends State<AnimatedCounter>
       setState(() {
         _value--;
       });
-      _animate();
+
+      _animateCounter();
+      _animateButton();
     }
   }
 
   @override
   void dispose() {
     _scaleController.dispose();
+    _buttonController.dispose();
     super.dispose();
   }
 
@@ -104,7 +133,9 @@ class _AnimatedCounterState extends State<AnimatedCounter>
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: isMax ? Colors.green : widget.primaryColor,
+                  color: isMax
+                      ? Colors.green
+                      : widget.primaryColor,
                 ),
                 child: Text(
                   '$_value',
@@ -133,19 +164,28 @@ class _AnimatedCounterState extends State<AnimatedCounter>
               },
             ),
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  onPressed: _decrement,
-                  icon: const Icon(Icons.remove),
-                ),
-                const SizedBox(width: 20),
-                IconButton(
-                  onPressed: _increment,
-                  icon: const Icon(Icons.add),
-                ),
-              ],
+            AnimatedBuilder(
+              animation: _buttonAnimation,
+              builder: (context, child) {
+                return Transform.scale(
+                  scale: _buttonAnimation.value,
+                  child: child,
+                );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: _decrement,
+                    icon: const Icon(Icons.remove),
+                  ),
+                  const SizedBox(width: 20),
+                  IconButton(
+                    onPressed: _increment,
+                    icon: const Icon(Icons.add),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
