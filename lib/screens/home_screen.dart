@@ -32,6 +32,12 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
+            Text(
+              'ProfileWidget',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            const SizedBox(height: 12),
+
             ProfileWidget(
               user: appState.currentUser,
               onEditPressed: () {
@@ -41,17 +47,36 @@ class HomeScreen extends StatelessWidget {
                 );
               },
             ),
-            const SizedBox(height: 16),
+
+            const SizedBox(height: 12),
+
+            ProfileWidget(
+              user: appState.currentUser,
+              isCompact: true,
+              onEditPressed: () {
+                _showMessage(
+                  context,
+                  'Редагування компактного профілю',
+                );
+              },
+            ),
+
+            const SizedBox(height: 24),
+
             const AnimatedCounter(
               initialValue: 0,
               maxValue: 10,
             ),
+
             const SizedBox(height: 24),
+
             Text(
               'CustomButton',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
+
             const SizedBox(height: 16),
+
             Wrap(
               spacing: 12,
               runSpacing: 12,
