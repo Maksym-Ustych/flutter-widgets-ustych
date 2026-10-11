@@ -88,3 +88,7 @@ flutter test
 ### ProfileWidget: expanded і compact
 
 ![ProfileWidget expanded і compact](screenshots/6_profile_compact.jpg)
+
+### AnimatedCounter
+
+![AnimatedCounter](screenshots/7_animated_counter.jpg)
