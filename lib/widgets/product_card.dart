@@ -20,6 +20,7 @@ class ProductCard extends StatefulWidget {
 
 class _ProductCardState extends State<ProductCard> {
   bool _isPressed = false;
+  bool _isImageZoomed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class _ProductCardState extends State<ProductCard> {
           _isPressed = false;
         });
       },
-      onHorizontalDragEnd: (details) {
+      onHorizontalDragEnd: (_) {
         widget.onFavoriteToggle?.call();
       },
       child: AnimatedScale(
@@ -55,34 +56,59 @@ class _ProductCardState extends State<ProductCard> {
             children: [
               Stack(
                 children: [
-                  Hero(
-                    tag: product.name,
-                    child: Image.network(
-                      product.imageUrl,
-                      height: 180,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child;
-                        }
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _isImageZoomed = !_isImageZoomed;
+                      });
+                    },
+                    child: AnimatedScale(
+                      scale: _isImageZoomed ? 1.08 : 1.0,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                      child: Image.network(
+                        product.imageUrl,
+                        height: 180,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        loadingBuilder: (
+                          context,
+                          child,
+                          loadingProgress,
+                        ) {
+                          if (loadingProgress == null) {
+                            return child;
+                          }
 
-                        return Container(
-                          height: 180,
-                          alignment: Alignment.center,
-                          child: const CircularProgressIndicator(),
-                        );
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          height: 180,
-                          alignment: Alignment.center,
-                          child: const Icon(
-                            Icons.image_not_supported,
-                            size: 50,
-                          ),
-                        );
-                      },
+                          return Container(
+                            height: 180,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .surfaceContainerHighest,
+                            ),
+                            child: const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                        },
+                        errorBuilder: (
+                          context,
+                          error,
+                          stackTrace,
+                        ) {
+                          return Container(
+                            height: 180,
+                            width: double.infinity,
+                            alignment: Alignment.center,
+                            child: const Icon(
+                              Icons.image_not_supported,
+                              size: 50,
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                   Positioned(
@@ -94,7 +120,9 @@ class _ProductCardState extends State<ProductCard> {
                         product.isFavorite
                             ? Icons.favorite
                             : Icons.favorite_border,
-                        color: product.isFavorite ? Colors.red : Colors.white,
+                        color: product.isFavorite
+                            ? Colors.red
+                            : Colors.white,
                       ),
                     ),
                   ),
@@ -134,7 +162,8 @@ class _ProductCardState extends State<ProductCard> {
                                 .textTheme
                                 .bodyMedium
                                 ?.copyWith(
-                                  decoration: TextDecoration.lineThrough,
+                                  decoration:
+                                      TextDecoration.lineThrough,
                                   color: Colors.grey,
                                 ),
                           ),
