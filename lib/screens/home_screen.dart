@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../utils/app_state.dart';
 import '../widgets/animated_counter.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/profile_widget.dart';
-import '../utils/app_state.dart';
 
 class HomeScreen extends StatelessWidget {
   final AppState appState;
@@ -12,6 +12,14 @@ class HomeScreen extends StatelessWidget {
     super.key,
     required this.appState,
   });
+
+  void _showMessage(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +35,9 @@ class HomeScreen extends StatelessWidget {
             ProfileWidget(
               user: appState.currentUser,
               onEditPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Редагування профілю'),
-                  ),
+                _showMessage(
+                  context,
+                  'Редагування профілю',
                 );
               },
             ),
@@ -39,17 +46,62 @@ class HomeScreen extends StatelessWidget {
               initialValue: 0,
               maxValue: 10,
             ),
+            const SizedBox(height: 24),
+            Text(
+              'CustomButton',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
             const SizedBox(height: 16),
-            CustomButton(
-              text: 'Основна кнопка',
-              icon: Icons.check,
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Кнопку натиснуто'),
-                  ),
-                );
-              },
+            Wrap(
+              spacing: 12,
+              runSpacing: 12,
+              alignment: WrapAlignment.center,
+              children: [
+                CustomButton(
+                  text: 'Primary',
+                  icon: Icons.check,
+                  style: CustomButtonStyle.primary,
+                  onPressed: () {
+                    _showMessage(
+                      context,
+                      'Primary button',
+                    );
+                  },
+                ),
+                CustomButton(
+                  text: 'Secondary',
+                  icon: Icons.star,
+                  style: CustomButtonStyle.secondary,
+                  onPressed: () {
+                    _showMessage(
+                      context,
+                      'Secondary button',
+                    );
+                  },
+                ),
+                CustomButton(
+                  text: 'Danger',
+                  icon: Icons.delete,
+                  style: CustomButtonStyle.danger,
+                  onPressed: () {
+                    _showMessage(
+                      context,
+                      'Danger button',
+                    );
+                  },
+                ),
+                CustomButton(
+                  text: 'Outline',
+                  icon: Icons.info_outline,
+                  style: CustomButtonStyle.outline,
+                  onPressed: () {
+                    _showMessage(
+                      context,
+                      'Outline button',
+                    );
+                  },
+                ),
+              ],
             ),
           ],
         ),
