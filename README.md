@@ -84,3 +84,7 @@ flutter test
 ### Варіанти CustomButton
 
 ![Варіанти CustomButton](screenshots/5_custom_buttons.jpg)
+
+### ProfileWidget: expanded і compact
+
+![ProfileWidget expanded і compact](screenshots/6_profile_compact.jpg)
