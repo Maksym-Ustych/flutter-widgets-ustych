@@ -92,3 +92,7 @@ flutter test
 ### AnimatedCounter
 
 ![AnimatedCounter](screenshots/7_animated_counter.jpg)
+
+### ProductCard: взаємодія з товаром
+
+![ProductCard interactions](screenshots/8_product_card_interactions.jpg)
