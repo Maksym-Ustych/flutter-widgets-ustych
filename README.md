@@ -80,3 +80,7 @@ flutter test
 ### Темна тема
 
 ![Темна тема](screenshots/4_dark_theme.jpg)
+
+### Варіанти CustomButton
+
+![Варіанти CustomButton](screenshots/5_custom_buttons.jpg)
