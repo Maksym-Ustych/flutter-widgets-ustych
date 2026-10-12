@@ -14,6 +14,29 @@ class ProfileWidget extends StatelessWidget {
     this.isCompact = false,
   });
 
+  Widget _buildAvatar(double radius) {
+    return ClipOval(
+      child: Image.network(
+        user.avatarUrl,
+        width: radius * 2,
+        height: radius * 2,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            width: radius * 2,
+            height: radius * 2,
+            color: Colors.deepPurple.shade100,
+            child: Icon(
+              Icons.person,
+              size: radius,
+              color: Colors.deepPurple,
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -25,10 +48,7 @@ class ProfileWidget extends StatelessWidget {
         child: isCompact
             ? Row(
                 children: [
-                  CircleAvatar(
-                    radius: 28,
-                    backgroundImage: NetworkImage(user.avatarUrl),
-                  ),
+                  _buildAvatar(28),
                   const SizedBox(width: 12),
                   Expanded(
                     child: _buildUserInfo(theme),
@@ -42,10 +62,7 @@ class ProfileWidget extends StatelessWidget {
               )
             : Column(
                 children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundImage: NetworkImage(user.avatarUrl),
-                  ),
+                  _buildAvatar(50),
                   const SizedBox(height: 12),
                   _buildUserInfo(theme),
                   if (onEditPressed != null) ...[
