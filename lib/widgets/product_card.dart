@@ -80,17 +80,8 @@ class _ProductCardState extends State<ProductCard> {
                             return child;
                           }
 
-                          return Container(
+                          return const ShimmerPlaceholder(
                             height: 180,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surfaceContainerHighest,
-                            ),
-                            child: const Center(
-                              child: CircularProgressIndicator(),
-                            ),
                           );
                         },
                         errorBuilder: (
@@ -185,6 +176,97 @@ class _ProductCardState extends State<ProductCard> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ShimmerPlaceholder extends StatefulWidget {
+  final double height;
+
+  const ShimmerPlaceholder({
+    super.key,
+    required this.height,
+  });
+
+  @override
+  State<ShimmerPlaceholder> createState() =>
+      _ShimmerPlaceholderState();
+}
+
+class _ShimmerPlaceholderState extends State<ShimmerPlaceholder>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final baseColor =
+        Theme.of(context).colorScheme.surfaceContainerHighest;
+
+    final highlightColor =
+        Theme.of(context).colorScheme.surfaceContainerLow;
+
+    return SizedBox(
+      height: widget.height,
+      width: double.infinity,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final shimmerWidth = constraints.maxWidth * 0.35;
+
+          return ClipRect(
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: Container(
+                    color: baseColor,
+                  ),
+                ),
+                AnimatedBuilder(
+                  animation: _controller,
+                  builder: (context, child) {
+                    final position =
+                        (constraints.maxWidth + shimmerWidth) *
+                                _controller.value -
+                            shimmerWidth;
+
+                    return Transform.translate(
+                      offset: Offset(position, 0),
+                      child: Container(
+                        width: shimmerWidth,
+                        height: widget.height,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.transparent,
+                              highlightColor,
+                              Colors.transparent,
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
