@@ -99,9 +99,16 @@ void main() {
     test('addToCart збільшує кількість товарів у кошику', () {
       final appState = AppState();
 
+      const product = Product(
+        name: 'Тестовий товар',
+        description: 'Опис товару',
+        price: 1000,
+        imageUrl: 'https://example.com/product.jpg',
+      );
+
       expect(appState.cartItemsCount, 0);
 
-      appState.addToCart();
+      appState.addToCart(product);
 
       expect(appState.cartItemsCount, 1);
     });

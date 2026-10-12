@@ -65,7 +65,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
               });
             },
             onAddToCart: () {
-              widget.appState.addToCart();
+              widget.appState.addToCart(product);
 
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(

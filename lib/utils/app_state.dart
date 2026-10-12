@@ -4,39 +4,58 @@ import '../models/product.dart';
 import '../models/user.dart';
 
 class AppState extends ChangeNotifier {
-  User currentUser = const User(
+  List<Product> _favoriteProducts = [];
+
+  User _currentUser = const User(
     name: 'Максим Устич',
     email: 'maksym.ustych@example.com',
     avatarUrl: 'https://i.pravatar.cc/300',
   );
 
-  final List<Product> favoriteProducts = [];
+  int _cartItemsCount = 0;
 
-  int cartItemsCount = 0;
+  List<Product> get favoriteProducts =>
+      List.unmodifiable(_favoriteProducts);
+
+  User get currentUser => _currentUser;
+
+  int get cartItemsCount => _cartItemsCount;
+
+  void updateUser(User user) {
+    _currentUser = user;
+    notifyListeners();
+  }
 
   void toggleFavorite(Product product) {
-    final index = favoriteProducts.indexWhere(
+    final isAlreadyFavorite = _favoriteProducts.any(
       (item) => item.name == product.name,
     );
 
-    if (index >= 0) {
-      favoriteProducts.removeAt(index);
+    if (isAlreadyFavorite) {
+      _favoriteProducts = _favoriteProducts
+          .where((item) => item.name != product.name)
+          .toList();
     } else {
-      favoriteProducts.add(
+      _favoriteProducts = [
+        ..._favoriteProducts,
         product.copyWith(isFavorite: true),
-      );
+      ];
     }
 
     notifyListeners();
   }
 
-  void addToCart() {
-    cartItemsCount++;
+  void addToCart(Product product) {
+    if (product.name.trim().isEmpty || product.price < 0) {
+      return;
+    }
+
+    _cartItemsCount++;
     notifyListeners();
   }
 
   bool isFavorite(Product product) {
-    return favoriteProducts.any(
+    return _favoriteProducts.any(
       (item) => item.name == product.name,
     );
   }
