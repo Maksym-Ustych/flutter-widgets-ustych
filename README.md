@@ -105,9 +105,17 @@ flutter test
 
 ## Тестування
 
-Автоматичні тести:
-- 12 тестів — успішно
-- `flutter analyze` — No issues found
-- Test coverage — 72.7%
+Автоматичні перевірки проєкту:
 
-[Переглянути Test Coverage Report](docs/coverage.md)
+- 12 unit/widget тестів — успішно
+- 1 integration test ключового користувацького сценарію — успішно
+- `flutter analyze` — No issues found
+- Test coverage — 72.7% (205/282 lines)
+
+Команди перевірки:
+
+```bash
+flutter analyze
+flutter test
+flutter test integration_test/app_test.dart -d windows
+flutter test --coverage
