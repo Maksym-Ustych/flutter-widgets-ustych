@@ -102,3 +102,12 @@ flutter test
 Документація архітектури, State Flow, Widget Tree та Mock API Contract:
 
 [Переглянути Architecture Documentation](docs/architecture.md)
+
+## Тестування
+
+Автоматичні тести:
+- 12 тестів — успішно
+- `flutter analyze` — No issues found
+- Test coverage — 72.7%
+
+[Переглянути Test Coverage Report](docs/coverage.md)
