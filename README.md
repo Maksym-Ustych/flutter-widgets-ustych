@@ -96,3 +96,9 @@ flutter test
 ### ProductCard: взаємодія з товаром
 
 ![ProductCard interactions](screenshots/8_product_card_interactions.jpg)
+
+## Архітектура
+
+Документація архітектури, State Flow, Widget Tree та Mock API Contract:
+
+[Переглянути Architecture Documentation](docs/architecture.md)
