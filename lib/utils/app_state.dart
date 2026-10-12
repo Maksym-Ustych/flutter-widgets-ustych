@@ -9,7 +9,8 @@ class AppState extends ChangeNotifier {
   User _currentUser = const User(
     name: 'Максим Устич',
     email: 'maksym.ustych@example.com',
-    avatarUrl: 'https://i.pravatar.cc/300',
+    avatarUrl:
+        'https://ui-avatars.com/api/?name=Maksym+Ustych&background=EADDFF&color=6750A4&size=300',
   );
 
   int _cartItemsCount = 0;
