@@ -119,6 +119,7 @@ flutter analyze
 flutter test
 flutter test integration_test/app_test.dart -d windows
 flutter test --coverage
+```
 
 ## Live Demo
 
