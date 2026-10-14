@@ -119,3 +119,9 @@ flutter analyze
 flutter test
 flutter test integration_test/app_test.dart -d windows
 flutter test --coverage
+
+## Live Demo
+
+Робоча веб-версія застосунку:
+
+https://maksym-ustych.github.io/flutter-widgets-ustych/
