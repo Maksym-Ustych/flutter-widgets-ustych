@@ -126,3 +126,10 @@ flutter test --coverage
 Робоча веб-версія застосунку:
 
 [Відкрити Live Demo](https://maksym-ustych.github.io/flutter-widgets-ustych/)
+
+
+## Design System
+
+Figma Design System:
+
+[Відкрити Figma Design System](https://www.figma.com/design/Kw20jyB5JTxIjsp95DPcVR/Flutter-Widgets-Design-System?node-id=0-1&m=dev&t=MNTBxYqg0h0MfsF3-1)
