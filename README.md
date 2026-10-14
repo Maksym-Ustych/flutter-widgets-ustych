@@ -124,4 +124,4 @@ flutter test --coverage
 
 Робоча веб-версія застосунку:
 
-https://maksym-ustych.github.io/flutter-widgets-ustych/
+[Відкрити Live Demo](https://maksym-ustych.github.io/flutter-widgets-ustych/)
